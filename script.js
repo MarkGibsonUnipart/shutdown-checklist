@@ -2,22 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 1. DEFINE YOUR EQUIPMENT LIST ---
     // You can customize this list to match your workspace.
     const equipment = [
-        "Central Benq",
-        "ELO Touch Reception",
-        "Sony screens",
-        "Power off AV tablet",
-        "Sleep Gaming PC",
-        "HTC Handsets",
-        "3D Printers",
-	"Cobot",
-	"Workbench Laptop",
-	"Workbench scanner",
-	"LG screens",
-	"ELO Touch Main Hall",
-	"Lights Main Hall",
-	"Air Con Main Hall",
-	"Lights Reception",
-	"Air Con Reception"
+        "Main Monitor",
+        "Second Monitor",
+        "Laptop",
+        "Docking Station",
+        "Speakers",
+        "Desk Lamp",
+        "3D Printer"
     ];
 
     // --- 2. GET REFERENCES TO HTML ELEMENTS ---
@@ -74,11 +65,15 @@ document.addEventListener('DOMContentLoaded', function() {
     resetButton.addEventListener('click', () => {
         // Clear the state in localStorage
         localStorage.removeItem('shutdownChecklist');
-        
+
         // Re-render the checklist to reflect the cleared state
         renderChecklist();
     });
 
+    // --- 5. INITIAL RENDER ---
+    // This is called when the page first loads
+    renderChecklist();
+});
     // --- 5. INITIAL RENDER ---
     // This is called when the page first loads
     renderChecklist();
