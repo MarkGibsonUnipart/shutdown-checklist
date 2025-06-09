@@ -2,13 +2,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 1. DEFINE YOUR EQUIPMENT LIST ---
     // You can customize this list to match your workspace.
     const equipment = [
-        "Main Monitor",
-        "Second Monitor",
-        "Laptop",
-        "Docking Station",
-        "Speakers",
-        "Desk Lamp",
-        "3D Printer"
+        "Central Benq",
+        "ELO Touch Reception",
+        "Sony screens",
+        "Power off AV tablet",
+        "Sleep Gaming PC",
+        "HTC Handsets",
+        "3D Printers",
+	    "Cobot",
+	    "Workbench Laptop",
+	    "Workbench scanner",
+	    "LG screens",
+	    "ELO Touch Main Hall",
+	    "Air Con Main Hall",
+	    "Lights Main Hall",
+	    "Air Con Reception",
+	    "Lights Reception"
     ];
 
     // --- 2. GET REFERENCES TO HTML ELEMENTS ---
