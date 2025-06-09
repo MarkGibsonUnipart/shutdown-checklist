@@ -4,7 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workspace Shutdown Checklist</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1c1e21;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #606770;
+            margin-bottom: 2rem;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            background-color: #f0f2f5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .item input[type="checkbox"] {
+            margin-right: 1rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .item label {
+            font-size: 1rem;
+            color: #1c1e21;
+            flex-grow: 1;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .item.checked {
+            background-color: #e7f3ff;
+        }
+
+        .item.checked label {
+            text-decoration: line-through;
+            color: #606770;
+        }
+
+        button {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: #166fe5;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -16,7 +99,93 @@
         <button id="resetButton">Reset for Tomorrow</button>
     </div>
 
-    <script src="script.js?v=1"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 1. DEFINE YOUR EQUIPMENT LIST ---
+            // You can customize this list to match your workspace.
+            const equipment = [
+        "Central Benq",
+        "ELO Touch Reception",
+        "Sony screens",
+        "Power off AV tablet",
+        "Sleep Gaming PC",
+        "HTC Handsets",
+        "3D Printers",
+	    "Cobot",
+	    "Workbench Laptop",
+	    "Workbench scanner",
+	    "LG screens",
+	    "ELO Touch Main Hall",
+	    "Lights Main Hall",
+	    "Air Con Main Hall",
+	    "Lights Reception",
+	    "Air Con Reception"
+            ];
+        
+            // --- 2. GET REFERENCES TO HTML ELEMENTS ---
+            const checklistContainer = document.getElementById('checklist');
+            const resetButton = document.getElementById('resetButton');
+        
+            // --- 3. FUNCTION TO RENDER THE CHECKLIST ---
+            function renderChecklist() {
+                // Clear any existing items
+                checklistContainer.innerHTML = '';
+        
+                // Load saved state from localStorage
+                const savedState = JSON.parse(localStorage.getItem('shutdownChecklist')) || {};
+        
+                equipment.forEach(item => {
+                    const isChecked = savedState[item] || false;
+        
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('item');
+                    if (isChecked) {
+                        itemDiv.classList.add('checked');
+                    }
+        
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = item;
+                    checkbox.checked = isChecked;
+        
+                    const label = document.createElement('label');
+                    label.htmlFor = item;
+                    label.textContent = item;
+        
+                    itemDiv.appendChild(checkbox);
+                    itemDiv.appendChild(label);
+                    checklistContainer.appendChild(itemDiv);
+        
+                    // Add event listener for changes
+                    checkbox.addEventListener('change', () => {
+                        const currentState = JSON.parse(localStorage.getItem('shutdownChecklist')) || {};
+                        currentState[item] = checkbox.checked;
+                        localStorage.setItem('shutdownChecklist', JSON.stringify(currentState));
+        
+                        // Update styling
+                        if (checkbox.checked) {
+                            itemDiv.classList.add('checked');
+                        } else {
+                            itemDiv.classList.remove('checked');
+                        }
+                    });
+                });
+            }
+        
+            // --- 4. RESET BUTTON FUNCTIONALITY ---
+            resetButton.addEventListener('click', () => {
+                // Clear the state in localStorage
+                localStorage.removeItem('shutdownChecklist');
+                
+                // Re-render the checklist to reflect the cleared state
+                renderChecklist();
+            });
+        
+            // --- 5. INITIAL RENDER ---
+            // This is called when the page first loads
+            renderChecklist();
+        });
+    </script>
+
 </body>
 </html>
-
