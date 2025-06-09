@@ -130,7 +130,7 @@
             function renderChecklist() {
                 // Clear any existing items
                 checklistContainer.innerHTML = '';
-        
+        console.log("Drawing checklist with these items:", equipment);
                 // Load saved state from localStorage
                 const savedState = JSON.parse(localStorage.getItem('shutdownChecklist')) || {};
         
